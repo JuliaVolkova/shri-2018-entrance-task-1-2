@@ -19,7 +19,7 @@ export function initMap(ymaps, containerId) {
     geoObjectBalloonContentLayout: getDetailsContentLayout(ymaps)
   });
 
-  objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
+  myMap.geoObjects.add(objectManager);
 
   loadList().then(data => {
     objectManager.add(data);
@@ -42,10 +42,12 @@ export function initMap(ymaps, containerId) {
 
   // filters
   const listBoxControl = createFilterControl(ymaps);
-  myMap.controls.add(listBoxControl);
 
-  var filterMonitor = new ymaps.Monitor(listBoxControl.state);
-  filterMonitor.add('filters', filters => {
+    myMap.controls.add(listBoxControl);
+  // исправила var на const - в проекте используется ES6, единообразие
+  const filterMonitor = new ymaps.Monitor(listBoxControl.state);
+
+    filterMonitor.add('filters', filters => {
     objectManager.setFilter(
       obj => filters[obj.isActive ? 'active' : 'defective']
     );

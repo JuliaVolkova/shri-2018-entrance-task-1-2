@@ -1,4 +1,5 @@
-import initMap from "./map";
+//  исправила на именованный импорт
+import { initMap } from "./map";
 
 ymaps.ready(() => {
   initMap(ymaps, "map");
